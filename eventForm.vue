@@ -15,23 +15,18 @@
             <option  v-for="(location) in locations" v-bind:key="location.id" value:key="location.locationName">{{location.locationName}}</option>
         </select>
         <br><br>
-        <h5>Start Date</h5>
-        <select v-model="selectedStartDate" id="location" v-on:click="loadLocation()" >
-            <option value="null">Please Select Start Date</option>
-            <option  v-for="(location) in locations" v-bind:key="location.id" value:key="location.locationName">{{location.locationName}}</option>
-        </select>
+        <label for="startDate"><h5>Start Date</h5></label><br>
+        <input type="date" id="startDate" v-model="startDate">
         <br><br>
         <h5>End Date</h5>
-        <select v-model="selectedEndDate" id="location" v-on:click="loadLocation()" >
-            <option value="null">Please Select End Date</option>
-            <option  v-for="(location) in locations" v-bind:key="location.id" value:key="location.locationName">{{location.locationName}}</option>
-        </select>
+        <input type="date" id="endDate" v-model="endDate">
         <br><br>
+        <button type="button" class="btn btn-info" v-on:click="loadTodo()">  Add Event </button><br><br>
         <h3>Result</h3>
         <div class="mt-2">Idol: <strong>{{ selectedIdol }}</strong></div>         
         <div class="mt-2">Location: <strong>{{ selectedLocation }}</strong></div>
-
-        <button type="button" class="btn btn-info" v-on:click="loadTodo()">  Add Event </button><br><br>
+        <div class="mt-2">Start: <strong>{{ startDate }}</strong></div>
+        <div class="mt-2">End: <strong>{{ endDate }}</strong></div>
         </div>
 </template>
 
@@ -65,7 +60,9 @@
                 selectedIdol: null,
                 selectedLocation: null,
                 selectedStartDate: null,
-                selectedEndDate: null
+                selectedEndDate: null,
+                startDate: null,
+                endStart: null
             }
         },
         firebase(){
