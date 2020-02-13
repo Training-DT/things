@@ -3,18 +3,35 @@
         <div class="page-header">
             <h1>Vue.js & Firebase <small>Fetch info</small></h1>
         </div>
-
-        <select id="idol" v-on:click="loadIdol()" >
-            <option value="select">Please Select Idol</option>
-            <option  v-for="(idol) in idols" v-bind:key="idol.id">{{idol.name}}</option>
-        </select> 
+        <h5>Idol</h5>
+        <select v-model="selectedIdol" id="idol" v-on:click="loadIdol()" >
+            <option value="null">Please Select Idol</option>
+            <option  v-for="(idol) in idols" v-bind:key="idol.id" value:key="idol.name">{{idol.name}}</option>
+        </select>
         <br><br>
-        <select id="location" v-on:click="loadLocation()" >
-            <option value="select">Please Select Location</option>
-            <option  v-for="(location) in locations" v-bind:key="location.id">{{location.locationName}}</option>
-        </select> 
-                        
-        
+        <h5>Location</h5>
+        <select v-model="selectedLocation" id="location" v-on:click="loadLocation()" >
+            <option value="null">Please Select Location</option>
+            <option  v-for="(location) in locations" v-bind:key="location.id" value:key="location.locationName">{{location.locationName}}</option>
+        </select>
+        <br><br>
+        <h5>Start Date</h5>
+        <select v-model="selectedStartDate" id="location" v-on:click="loadLocation()" >
+            <option value="null">Please Select Start Date</option>
+            <option  v-for="(location) in locations" v-bind:key="location.id" value:key="location.locationName">{{location.locationName}}</option>
+        </select>
+        <br><br>
+        <h5>End Date</h5>
+        <select v-model="selectedEndDate" id="location" v-on:click="loadLocation()" >
+            <option value="null">Please Select End Date</option>
+            <option  v-for="(location) in locations" v-bind:key="location.id" value:key="location.locationName">{{location.locationName}}</option>
+        </select>
+        <br><br>
+        <h3>Result</h3>
+        <div class="mt-2">Idol: <strong>{{ selectedIdol }}</strong></div>         
+        <div class="mt-2">Location: <strong>{{ selectedLocation }}</strong></div>
+
+        <button type="button" class="btn btn-info" v-on:click="loadTodo()">  Add Event </button><br><br>
         </div>
 </template>
 
@@ -42,15 +59,20 @@
     export default{
         data() {
             return {
-                event:[],
+                events:[],
                 locations:'',
-                idols:'' 
+                idols:'' ,
+                selectedIdol: null,
+                selectedLocation: null,
+                selectedStartDate: null,
+                selectedEndDate: null
             }
         },
         firebase(){
             return{
                 idols:db.collection('Person'),
                 locations:db.collection('Locations')
+                
             }
         },
         methods:{
@@ -59,7 +81,6 @@
                 console.log("Hello");
                 db.collection('Person').get().then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {  
-                        console.log(doc.id)
                     let idol = {
                         id: doc.id,
                         name: doc.data().name,
@@ -84,6 +105,9 @@
                 });
                 this.locations = locationList;
             },
+            selectLocation(collectionID) {
+                
+            }
                     
         }
     }
